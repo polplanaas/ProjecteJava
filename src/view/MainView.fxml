@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="controller.Controller">
+
+    <top>
+        <Label text="🎵 Noted - Biblioteca Musical"
+               style="-fx-font-size: 24px; -fx-padding: 20px; -fx-font-weight: bold;"
+               BorderPane.alignment="CENTER"/>
+    </top>
+
+    <left>
+        <VBox spacing="10" style="-fx-padding: 20px;">
+            <Label text="Géneros" style="-fx-font-size: 16px;"/>
+            <ListView fx:id="genreListView" prefWidth="150" prefHeight="400"/>
+        </VBox>
+    </left>
+
+    <center>
+        <VBox spacing="10" style="-fx-padding: 20px;">
+            <Label text="Canciones del género seleccionado" style="-fx-font-size: 16px;"/>
+            <TableView fx:id="songTableView" prefWidth="500" prefHeight="400">
+                <columns>
+                    <TableColumn fx:id="titleColumn" text="Título" prefWidth="200"/>
+                    <TableColumn fx:id="artistColumn" text="Artista" prefWidth="150"/>
+                    <TableColumn fx:id="ratingColumn" text="⭐ Puntuación" prefWidth="100"/>
+                </columns>
+            </TableView>
+        </VBox>
+    </center>
+
+</BorderPane>
