@@ -1,8 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1">
-	<!-- TODO Add Nodes -->
-</AnchorPane>
+<VBox xmlns:fx="http://javafx.com/fxml" 
+      fx:controller="controller.RatingController"
+      alignment="CENTER" spacing="20" style="-fx-padding: 30px; -fx-background-color: #f9f9f9;">
 
+    <Label fx:id="songLabel"
+           text="Puntuar cançó"
+           style="-fx-font-size: 20px; -fx-font-weight: bold;" />
+
+    <HBox spacing="10" alignment="CENTER">
+        <Label text="Puntuació (1-5):"
+               style="-fx-font-size: 14px;" />
+        <TextField fx:id="ratingField" promptText="Ex: 4" maxWidth="60"/>
+    </HBox>
+
+    <Label text="Comentari:"
+           style="-fx-font-size: 14px;" />
+    <TextArea fx:id="commentArea"
+              promptText="Escriu el teu comentari aquí..."
+              prefRowCount="4" wrapText="true"
+              maxWidth="300"/>
+
+    <Button text="✅ Enviar Valoració"
+            style="-fx-font-size: 14px; -fx-background-color: #4CAF50; -fx-text-fill: white;"
+            onAction="#handleSubmitRating" />
+</VBox>

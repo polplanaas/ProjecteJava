@@ -1,27 +1,33 @@
 package controller;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.*;
 
 import model.Song;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.*;
 
 public class Controller implements Initializable {
 
-    // Components Música
     @FXML private ListView<String> genreListView;
     @FXML private TableView<Song> songTableView;
     @FXML private TableColumn<Song, String> titleColumn;
     @FXML private TableColumn<Song, String> artistColumn;
     @FXML private TableColumn<Song, Double> ratingColumn;
-    @FXML private ListView<String> top5ListView;  // 👈 Top 5 cançons
+    @FXML private TableColumn<Song, Void> rateColumn;
+    @FXML private ListView<String> top5ListView;
 
     private Connection connection;
     private Map<String, Integer> genreMap = new HashMap<>();
@@ -32,7 +38,7 @@ public class Controller implements Initializable {
         connectToDatabase();
         setupMusicTable();
         loadGenres();
-        loadTop5Songs(); // 👈 Carreguem el rànquing top 5
+        loadTop5Songs();
 
         genreListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal != null) {
@@ -49,7 +55,6 @@ public class Controller implements Initializable {
             connection = DriverManager.getConnection("jdbc:sqlite:noted.db");
         } catch (SQLException e) {
             e.printStackTrace();
-            // Aquí pots afegir una alerta si ho vols
         }
     }
 
@@ -59,6 +64,7 @@ public class Controller implements Initializable {
         ratingColumn.setCellValueFactory(cellData -> new SimpleDoubleProperty(cellData.getValue().getAverageR()).asObject());
 
         songTableView.setItems(songList);
+        addRateButtonToTable();
     }
 
     private void loadGenres() {
@@ -125,6 +131,46 @@ public class Controller implements Initializable {
             }
             top5ListView.setItems(top5);
         } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void addRateButtonToTable() {
+        rateColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button btn = new Button("Puntuar");
+
+            {
+                btn.setOnAction(event -> {
+                    Song song = getTableView().getItems().get(getIndex());
+                    openRatingView(song);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                if (empty) {
+                    setGraphic(null);
+                } else {
+                    setGraphic(btn);
+                }
+            }
+        });
+    }
+
+    private void openRatingView(Song song) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/RatingView.fxml"));
+            Parent root = loader.load();
+
+            controller.RatingController controller = loader.getController();
+            controller.setSong(song);
+
+            Stage stage = new Stage();
+            stage.setTitle("Puntuar Cançó");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

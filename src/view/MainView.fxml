@@ -23,19 +23,22 @@
     <center>
         <VBox spacing="10" style="-fx-padding: 20px;">
             <Label text="Cançons del genere seleccionat" style="-fx-font-size: 16px;"/>
-            <TableView fx:id="songTableView" prefWidth="500" prefHeight="400">
+            <TableView fx:id="songTableView" prefWidth="600" prefHeight="400">
                 <columns>
                     <TableColumn fx:id="titleColumn" text="Titol" prefWidth="200"/>
                     <TableColumn fx:id="artistColumn" text="Artista" prefWidth="150"/>
                     <TableColumn fx:id="ratingColumn" text="⭐ Puntuacions" prefWidth="100"/>
+                    <TableColumn fx:id="rateColumn" text="Puntuar" prefWidth="80"/>
                 </columns>
             </TableView>
         </VBox>
     </center>
-	<bottom>
-	    <VBox spacing="10" style="-fx-padding: 20px;">
-	        <Label text="🔝 Top 5 Cançons Millor Valorades Del Moment" style="-fx-font-size: 16px;"/>
-	        <ListView fx:id="top5ListView" prefHeight="120"/>
-	    </VBox>
-	</bottom>
+
+    <bottom>
+        <VBox spacing="10" style="-fx-padding: 20px;">
+            <Label text="🔝 Top 5 Cançons Millor Valorades Del Moment" style="-fx-font-size: 16px;"/>
+            <ListView fx:id="top5ListView" prefHeight="120"/>
+        </VBox>
+    </bottom>
+
 </BorderPane>
