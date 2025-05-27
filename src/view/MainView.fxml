@@ -8,29 +8,34 @@
             fx:controller="controller.Controller">
 
     <top>
-        <Label text="🎵 Noted - Biblioteca Musical"
+        <Label text="🎵 NOTED! - RATING EVERYTHING"
                style="-fx-font-size: 24px; -fx-padding: 20px; -fx-font-weight: bold;"
                BorderPane.alignment="CENTER"/>
     </top>
 
     <left>
         <VBox spacing="10" style="-fx-padding: 20px;">
-            <Label text="Géneros" style="-fx-font-size: 16px;"/>
+            <Label text="Generes" style="-fx-font-size: 16px;"/>
             <ListView fx:id="genreListView" prefWidth="150" prefHeight="400"/>
         </VBox>
     </left>
 
     <center>
         <VBox spacing="10" style="-fx-padding: 20px;">
-            <Label text="Canciones del género seleccionado" style="-fx-font-size: 16px;"/>
+            <Label text="Cançons del genere seleccionat" style="-fx-font-size: 16px;"/>
             <TableView fx:id="songTableView" prefWidth="500" prefHeight="400">
                 <columns>
-                    <TableColumn fx:id="titleColumn" text="Título" prefWidth="200"/>
+                    <TableColumn fx:id="titleColumn" text="Titol" prefWidth="200"/>
                     <TableColumn fx:id="artistColumn" text="Artista" prefWidth="150"/>
-                    <TableColumn fx:id="ratingColumn" text="⭐ Puntuación" prefWidth="100"/>
+                    <TableColumn fx:id="ratingColumn" text="⭐ Puntuacions" prefWidth="100"/>
                 </columns>
             </TableView>
         </VBox>
     </center>
-
+	<bottom>
+	    <VBox spacing="10" style="-fx-padding: 20px;">
+	        <Label text="🔝 Top 5 Cançons Millor Valorades Del Moment" style="-fx-font-size: 16px;"/>
+	        <ListView fx:id="top5ListView" prefHeight="120"/>
+	    </VBox>
+	</bottom>
 </BorderPane>

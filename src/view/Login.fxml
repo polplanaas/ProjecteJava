@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="controller.LoginController"
+      alignment="CENTER"
+      spacing="15"
+      style="-fx-background-color: #f4f4f4;"
+      prefWidth="400" prefHeight="300">
+
+	<Label text="NOTED!"
+           style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: green;"/>
+           
+    <Label text="Inicia Sessió"
+           style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="usernameField" promptText="Nom d'usuari" />
+
+    <PasswordField fx:id="passwordField" promptText="Contrasenya" />
+
+    <Button text="Entrar"
+            onAction="#handleLogin"
+            style="-fx-background-color: #3f51b5; -fx-text-fill: white;" />
+
+    <Label fx:id="errorLabel" textFill="red" />
+
+</VBox>
