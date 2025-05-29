@@ -8,7 +8,7 @@ import java.sql.*;
 
 public class LoginController {
 
-    @FXML private TextField usernameField;  // Ahora username en vez de email
+    @FXML private TextField usernameField;
     @FXML private PasswordField passwordField;
     @FXML private Label errorLabel;
 
@@ -76,4 +76,6 @@ public class LoginController {
             errorLabel.setText("Error de connexió.");
         }
     }
+    
+    
 }

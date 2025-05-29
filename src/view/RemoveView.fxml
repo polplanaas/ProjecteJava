@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            xmlns="http://javafx.com/javafx"
+            fx:controller="controller.RemoveController">
+
+    <center>
+        <VBox spacing="15" alignment="CENTER" style="-fx-padding: 20px;">
+            <Label text="Estàs segur que vols eliminar el teu compte?"
+                   style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+            <HBox spacing="10" alignment="CENTER">
+                <Button fx:id="deleteButton" text="Eliminar" onAction="#handleDelete"/>
+                <Button fx:id="cancelButton" text="Cancel·la" onAction="#handleCancel"/>
+            </HBox>
+        </VBox>
+    </center>
+
+</BorderPane>

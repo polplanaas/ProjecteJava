@@ -8,9 +8,13 @@
             fx:controller="controller.Controller">
 
     <top>
-        <Label text="🎵 NOTED! - RATING EVERYTHING"
-               style="-fx-font-size: 24px; -fx-padding: 20px; -fx-font-weight: bold;"
-               BorderPane.alignment="CENTER"/>
+        <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 20px;">
+            <Label text="🎵 NOTED! - RATING EVERYTHING"
+                   style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
+            <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
+            <Button text="Canviar Contrasenya" onAction="#handleChangePassword"/>
+            <Button text="Eliminar Compte" onAction="#handleDeleteAccount"/>
+        </HBox>
     </top>
 
     <left>
@@ -29,6 +33,7 @@
                     <TableColumn fx:id="artistColumn" text="Artista" prefWidth="150"/>
                     <TableColumn fx:id="ratingColumn" text="⭐ Puntuacions" prefWidth="100"/>
                     <TableColumn fx:id="rateColumn" text="Puntuar" prefWidth="80"/>
+                    <TableColumn fx:id="infoColumn" text="Més Info" prefWidth="100"/>
                 </columns>
             </TableView>
         </VBox>

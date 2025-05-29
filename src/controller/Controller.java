@@ -27,6 +27,7 @@ public class Controller implements Initializable {
     @FXML private TableColumn<Song, String> artistColumn;
     @FXML private TableColumn<Song, Double> ratingColumn;
     @FXML private TableColumn<Song, Void> rateColumn;
+    @FXML private TableColumn<Song, Void> infoColumn;
     @FXML private ListView<String> top5ListView;
 
     private Connection connection;
@@ -65,6 +66,7 @@ public class Controller implements Initializable {
 
         songTableView.setItems(songList);
         addRateButtonToTable();
+        addInfoButtonToTable();
     }
 
     private void loadGenres() {
@@ -149,11 +151,26 @@ public class Controller implements Initializable {
             @Override
             protected void updateItem(Void item, boolean empty) {
                 super.updateItem(item, empty);
-                if (empty) {
-                    setGraphic(null);
-                } else {
-                    setGraphic(btn);
-                }
+                setGraphic(empty ? null : btn);
+            }
+        });
+    }
+
+    private void addInfoButtonToTable() {
+        infoColumn.setCellFactory(param -> new TableCell<>() {
+            private final Button btn = new Button("Més Info");
+
+            {
+                btn.setOnAction(event -> {
+                    Song song = getTableView().getItems().get(getIndex());
+                    openInfoView(song);
+                });
+            }
+
+            @Override
+            protected void updateItem(Void item, boolean empty) {
+                super.updateItem(item, empty);
+                setGraphic(empty ? null : btn);
             }
         });
     }
@@ -163,11 +180,68 @@ public class Controller implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/RatingView.fxml"));
             Parent root = loader.load();
 
-            controller.RatingController controller = loader.getController();
+            RatingController controller = loader.getController();
             controller.setSong(song);
 
             Stage stage = new Stage();
             stage.setTitle("Puntuar Cançó");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void openInfoView(Song song) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/InfoView.fxml"));
+            Parent root = loader.load();
+
+            InfoController controller = loader.getController();
+            controller.setSong(song);
+
+            Stage stage = new Stage();
+            stage.setTitle("Informació de la Cançó");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleChangePassword() {
+        String username = "keofan123";
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/ChangePasswordView.fxml"));
+            Parent root = loader.load();
+
+            ChangePasswordController controller = loader.getController();
+            controller.setUsername(username);
+
+            Stage stage = new Stage();
+            stage.setTitle("Canviar Contrasenya");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @FXML
+    private void handleDeleteAccount() {
+        String username = "keofan123";
+
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/RemoveView.fxml"));
+            Parent root = loader.load();
+
+            RemoveController controller = loader.getController();
+            controller.setUsername(username);
+
+            Stage stage = new Stage();
+            stage.setTitle("Eliminar Compte");
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException e) {
