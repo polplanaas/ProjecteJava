@@ -29,7 +29,7 @@ public class RemoveController {
     @FXML
     private void handleDelete() {
         try (Connection conn = DriverManager.getConnection("jdbc:sqlite:noted.db");
-             PreparedStatement stmt = conn.prepareStatement("DELETE FROM user WHERE username = ?")) {
+             PreparedStatement stmt = conn.prepareStatement("DELETE FROM users WHERE username = ?")) {
 
             stmt.setString(1, username);
             stmt.executeUpdate();
