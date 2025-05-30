@@ -5,72 +5,54 @@
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
-            fx:controller="controller.Controller"> <!-- S'associa el controlador principal -->
+            fx:controller="controller.ControllerAdmin">
 
     <!-- Zona superior de l'aplicació -->
     <top>
         <HBox alignment="CENTER_LEFT" spacing="20" style="-fx-padding: 20px;">
-            <!-- Títol principal -->
             <Label text="🎵 NOTED! - RATING EVERYTHING"
                    style="-fx-font-size: 24px; -fx-font-weight: bold;"/>
 
-            <!-- Espai per empènyer els botons cap a la dreta -->
             <Region fx:id="spacer" HBox.hgrow="ALWAYS"/>
 
-            <!-- Botó per canviar la contrasenya -->
             <Button text="Canviar Contrasenya" onAction="#handleChangePassword"/>
-
-            <!-- Botó per eliminar el compte -->
-            <Button text="Eliminar Compte" onAction="#handleDeleteAccount"/>
         </HBox>
     </top>
 
     <!-- Zona esquerra on hi ha la llista de gèneres musicals -->
     <left>
         <VBox spacing="10" style="-fx-padding: 20px;">
-            <!-- Etiqueta de secció -->
             <Label text="Generes" style="-fx-font-size: 16px;"/>
-
-            <!-- Llista de gèneres -->
             <ListView fx:id="genreListView" prefWidth="150" prefHeight="400"/>
         </VBox>
     </left>
 
-    <!-- Zona central on hi ha la taula de cançons segons el gènere seleccionat -->
+    <!-- Zona central amb la taula de cançons -->
     <center>
         <VBox spacing="10" style="-fx-padding: 20px;">
-            <!-- Etiqueta de secció -->
             <Label text="Cançons del genere seleccionat" style="-fx-font-size: 16px;"/>
-
-            <!-- Taula principal per mostrar les cançons -->
             <TableView fx:id="songTableView" prefWidth="600" prefHeight="400">
                 <columns>
-                    <!-- Títol de la cançó -->
                     <TableColumn fx:id="titleColumn" text="Titol" prefWidth="200"/>
-                    
-                    <!-- Artista -->
                     <TableColumn fx:id="artistColumn" text="Artista" prefWidth="150"/>
-                    
-                    <!-- Mitjana de puntuació -->
                     <TableColumn fx:id="ratingColumn" text="⭐ Puntuacions" prefWidth="100"/>
-                    
-                    <!-- Botó per puntuar -->
                     <TableColumn fx:id="rateColumn" text="Puntuar" prefWidth="80"/>
-                    
-                    <!-- Botó per veure més informació -->
                     <TableColumn fx:id="infoColumn" text="Més Info" prefWidth="100"/>
                 </columns>
             </TableView>
         </VBox>
     </center>
 
-    <!-- Top 5 cançons amb millor puntuació -->
+    <!-- Zona inferior amb top 5 i usuaris -->
     <bottom>
         <VBox spacing="10" style="-fx-padding: 20px;">
             <Label text="🔝 Top 5 Cançons Millor Valorades Del Moment" style="-fx-font-size: 16px;"/>
-
-            <!-- Llista amb el rànquing de cançons -->
             <ListView fx:id="top5ListView" prefHeight="120"/>
+
+            <Separator/>
+
+            <Label text="Usuaris Actuals" style="-fx-font-size: 16px;"/>
+            <ListView fx:id="actualUsers" prefHeight="120"/>
         </VBox>
     </bottom>
 

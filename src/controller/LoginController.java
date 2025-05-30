@@ -6,6 +6,11 @@ import javafx.stage.Stage;
 
 import java.sql.*;
 
+/**
+ * Controlador per gestionar el procés d'autenticació d'usuari.
+ * 
+ * @author Pol_Planas
+ */
 public class LoginController {
 
     @FXML private TextField usernameField;
@@ -24,11 +29,17 @@ public class LoginController {
         this.mainApp = mainApp;
     }
 
+    /**
+     * Inicialitza el controlador i estableix la connexió amb la base de dades.
+     */
     @FXML
     private void initialize() {
         connectToDatabase();
     }
 
+    /**
+     * Estableix la connexió amb la base de dades SQLite.
+     */
     private void connectToDatabase() {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:noted.db");
@@ -38,6 +49,10 @@ public class LoginController {
         }
     }
 
+    /**
+     * Gestiona l'acció d'inici de sessió.
+     * Valida que els camps no estiguin buits i comprova les credencials a la base de dades.
+     */
     @FXML
     private void handleLogin() {
         String username = usernameField.getText().trim();
@@ -56,14 +71,15 @@ public class LoginController {
 
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
+                // Login correcte
                 errorLabel.setText("");
 
                 if (mainApp != null) {
                     try {
-                        mainApp.showMainView();
+                        mainApp.showMainView(username); // ✅ Passa el nom d'usuari
                     } catch (Exception e) {
                         e.printStackTrace();
-                        errorLabel.setText("No s'ha pogut carregar la vista principal.");
+                        errorLabel.setText("No s'ha pogut carregar la vista.");
                     }
                 }
 
@@ -76,6 +92,4 @@ public class LoginController {
             errorLabel.setText("Error de connexió.");
         }
     }
-    
-    
 }

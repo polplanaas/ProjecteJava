@@ -6,25 +6,32 @@ import model.Song;
 
 import java.sql.*;
 
+/**
+ * Mostra informació detallada d'una cançó.
+ * 
+ * @author Pol_Planas
+ */
 public class InfoController {
 
-    @FXML private Label titleLabel;
-    @FXML private Label artistLabel;
-    @FXML private Label albumLabel;
-    @FXML private Label durationLabel;
-    @FXML private Label releaseDateLabel;
-    @FXML private Label genreLabel;
-    @FXML private Label ratingLabel;
+    @FXML private Label titleLabel, artistLabel, albumLabel, durationLabel, releaseDateLabel, genreLabel, ratingLabel;
 
     private Song song;
     private Connection connection;
 
+    /**
+     * Assigna la cançó i carrega les dades de la canço seleccionada.
+     * 
+     * @param song Cançó seleccionada
+     */
     public void setSong(Song song) {
         this.song = song;
         connectToDatabase();
         loadSongDetails();
     }
 
+    /**
+     * Connecta a la base de dades.
+     */
     private void connectToDatabase() {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:noted.db");
@@ -33,6 +40,9 @@ public class InfoController {
         }
     }
 
+    /**
+     * Controla totes les dades de la canço amb la mitjana de retings que te i ho mostra per pantalla.
+     */
     private void loadSongDetails() {
         String sql = """
             SELECT s.title, s.artist, s.album, s.duration_seconds, s.release_date, g.name AS genre_name,

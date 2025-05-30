@@ -4,16 +4,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<!-- Vista FXML per confirmar l'eliminacio del compte d'usuari -->
+
 <BorderPane xmlns:fx="http://javafx.com/fxml"
             xmlns="http://javafx.com/javafx"
             fx:controller="controller.RemoveController">
 
     <center>
+        <!-- Contingut central amb el missatge i els botons -->
         <VBox spacing="15" alignment="CENTER" style="-fx-padding: 20px;">
+        
+            <!-- Missatge de confirmació per eliminar el compte -->
             <Label text="Estàs segur que vols eliminar el teu compte?"
                    style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
+                   
+            <!-- Botons d'acció: Eliminar i Cancel·lar -->
             <HBox spacing="10" alignment="CENTER">
+                <!-- Botó per confirmar l'eliminació -->
                 <Button fx:id="deleteButton" text="Eliminar" onAction="#handleDelete"/>
+                
+                <!-- Botó per cancel·lar i tornar enrere -->
                 <Button fx:id="cancelButton" text="Cancel·la" onAction="#handleCancel"/>
             </HBox>
         </VBox>

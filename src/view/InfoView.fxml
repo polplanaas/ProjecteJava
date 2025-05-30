@@ -3,19 +3,24 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<!-- Vista FXML per mostrar els detalls d'una cançó. -->
+
+
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="controller.InfoController"
       spacing="10" alignment="CENTER_LEFT" style="-fx-padding: 20px;">
 
+    <!-- Títol de la secció -->
     <Label text="🎵 Detalls de la Cançó" style="-fx-font-size: 20px; -fx-font-weight: bold;"/>
 
-    <Label fx:id="titleLabel" style="-fx-font-size: 16px;"/>
-    <Label fx:id="artistLabel" style="-fx-font-size: 16px;"/>
-    <Label fx:id="albumLabel" style="-fx-font-size: 16px;"/>
-    <Label fx:id="durationLabel" style="-fx-font-size: 16px;"/>
-    <Label fx:id="releaseDateLabel" style="-fx-font-size: 16px;"/>
-    <Label fx:id="genreLabel" style="-fx-font-size: 16px;"/>
-    <Label fx:id="ratingLabel" style="-fx-font-size: 16px;"/>
+    <!-- Etiquetes per mostrar informació detallada de la cançó -->
+    <Label fx:id="titleLabel" style="-fx-font-size: 16px;"/>         <!-- Títol de la cançó -->
+    <Label fx:id="artistLabel" style="-fx-font-size: 16px;"/>        <!-- Nom de l'artista -->
+    <Label fx:id="albumLabel" style="-fx-font-size: 16px;"/>         <!-- Nom de l'àlbum -->
+    <Label fx:id="durationLabel" style="-fx-font-size: 16px;"/>      <!-- Durada de la cançó -->
+    <Label fx:id="releaseDateLabel" style="-fx-font-size: 16px;"/>   <!-- Data de llançament -->
+    <Label fx:id="genreLabel" style="-fx-font-size: 16px;"/>         <!-- Gènere musical -->
+    <Label fx:id="ratingLabel" style="-fx-font-size: 16px;"/>        <!-- Valoració mitjana -->
 
 </VBox>

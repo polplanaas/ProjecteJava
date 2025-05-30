@@ -4,6 +4,8 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<!-- Vista FXML per a la pantalla d'inici de sessió de l'aplicació NOTED! -->
+
 <VBox xmlns="http://javafx.com/javafx"
       xmlns:fx="http://javafx.com/fxml"
       fx:controller="controller.LoginController"
@@ -12,20 +14,26 @@
       style="-fx-background-color: #f4f4f4;"
       prefWidth="400" prefHeight="300">
 
-	<Label text="NOTED!"
+    <!-- Títol principal de l'aplicació -->
+    <Label text="NOTED!"
            style="-fx-font-size: 40px; -fx-font-weight: bold; -fx-text-fill: green;"/>
            
+    <!-- Subtítol per indicar inici de sessió -->
     <Label text="Inicia Sessió"
            style="-fx-font-size: 14px; -fx-font-weight: bold;"/>
 
+    <!-- Camp de text per introduir el nom d'usuari -->
     <TextField fx:id="usernameField" promptText="Nom d'usuari" />
 
+    <!-- Camp de contrasenya -->
     <PasswordField fx:id="passwordField" promptText="Contrasenya" />
 
+    <!-- Botó per iniciar sessió -->
     <Button text="Entrar"
             onAction="#handleLogin"
             style="-fx-background-color: #3f51b5; -fx-text-fill: white;" />
 
+    <!-- Etiqueta per mostrar errors d'inici de sessió -->
     <Label fx:id="errorLabel" textFill="red" />
 
 </VBox>

@@ -20,11 +20,11 @@ import java.sql.*;
 import java.util.*;
 
 /**
- * Aquests es el controlador principal de l'aplicació.
+ * Aquests es el controlador del usuari administrador a l'aplicació, fa el mateix que l'altre excepte veure els usuaris i no permet veure elminar la compte.
  * 
  * @author Pol_Planas
  */
-public class Controller implements Initializable {
+public class ControllerAdmin implements Initializable {
 
     @FXML private ListView<String> genreListView;
     @FXML private TableView<Song> songTableView;
@@ -34,6 +34,7 @@ public class Controller implements Initializable {
     @FXML private TableColumn<Song, Void> rateColumn;
     @FXML private TableColumn<Song, Void> infoColumn;
     @FXML private ListView<String> top5ListView;
+    @FXML private ListView<String> actualUsers;
 
     private Connection connection;
     private Map<String, Integer> genreMap = new HashMap<>();
@@ -51,6 +52,7 @@ public class Controller implements Initializable {
         setupMusicTable();
         loadGenres();
         loadTop5Songs();
+        handleShowUsers();
 
         // Assigna una acció al seleccionar un gènere
         genreListView.getSelectionModel().selectedItemProperty().addListener((obs, oldVal, newVal) -> {
@@ -264,27 +266,32 @@ public class Controller implements Initializable {
             e.printStackTrace();
         }
     }
-
+    
     /**
-     * Obre la vista per eliminar el compte connectanse a la finestre RemoveView.
+     * Gestiona els usaris del sistema.
      */
     @FXML
-    private void handleDeleteAccount() {
-        String username = "keofan123";
+    private void handleShowUsers() {
+        ObservableList<String> usersList = FXCollections.observableArrayList();
+        String sql = "SELECT username, password FROM users";
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/RemoveView.fxml"));
-            Parent root = loader.load();
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:noted.db");
+             Statement stmt = connection.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
-            RemoveController controller = loader.getController();
-            controller.setUsername(username);
+            while (rs.next()) {
+                String username = rs.getString("username");
+                String password = rs.getString("password");
+                usersList.add("Usuari: " + username + " | Contrasenya: " + password);
+            }
 
-            Stage stage = new Stage();
-            stage.setTitle("Eliminar Compte");
-            stage.setScene(new Scene(root));
-            stage.show();
-        } catch (IOException e) {
+            actualUsers.setItems(usersList);
+
+        } catch (SQLException e) {
             e.printStackTrace();
+            usersList.clear();
+            usersList.add("Error carregant usuaris.");
+            actualUsers.setItems(usersList);
         }
     }
 }

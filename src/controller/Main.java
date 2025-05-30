@@ -5,6 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+/**
+ * Classe principal que inicia l'aplicació.
+ * 
+ * 
+ * @author Pol_Planas
+ */
 public class Main extends Application {
 
     private Stage primaryStage;
@@ -15,23 +21,37 @@ public class Main extends Application {
         showLogin();
     }
 
+    /**
+     * Carrega inicialment la vista login.
+     */
     public void showLogin() throws Exception {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/Login.fxml"));
-        Scene scene = new Scene(loader.load());
+        primaryStage.setScene(new Scene(loader.load()));
         primaryStage.setTitle("Login - NOTED!");
-        primaryStage.setScene(scene);
         primaryStage.show();
 
-        LoginController loginController = loader.getController();
-        loginController.setMainApp(this);
-        loginController.setStage(primaryStage);
+        LoginController controller = loader.getController();
+        controller.setMainApp(this);
+        controller.setStage(primaryStage);
     }
 
-    public void showMainView() throws Exception {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/MainView.fxml"));
-        Scene scene = new Scene(loader.load());
-        primaryStage.setTitle("NOTED! - RATING EVERYTHING");
-        primaryStage.setScene(scene);
+    /**
+     * Executa la vista principal segons si l'usuari és admin o no.
+     *
+     * @param username
+     */
+    public void showMainView(String username) throws Exception {
+        FXMLLoader loader;
+
+        if ("admin".equalsIgnoreCase(username)) {
+            loader = new FXMLLoader(getClass().getResource("/view/AdminView.fxml"));
+            primaryStage.setTitle("Admin - NOTED!");
+        } else {
+            loader = new FXMLLoader(getClass().getResource("/view/MainView.fxml"));
+            primaryStage.setTitle("NOTED! - RATING EVERYTHING");
+        }
+
+        primaryStage.setScene(new Scene(loader.load()));
         primaryStage.show();
     }
 

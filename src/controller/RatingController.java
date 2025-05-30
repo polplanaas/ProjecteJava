@@ -7,6 +7,11 @@ import model.Song;
 
 import java.sql.*;
 
+/**
+ * Controlador per enviar puntuacions i comentaris sobre cançons.
+ * 
+ * @author Pol_Planas
+ */
 public class RatingController {
 
     @FXML private Label songLabel;
@@ -14,16 +19,14 @@ public class RatingController {
     @FXML private TextArea commentArea;
 
     private int songId;
-    private int userId = 1; // Posa aquí la id de l'usuari que ha fet login o passa-la per setUserId si vols.
-
+    private int userId = 1;
     private Connection connection;
 
+    /**
+     * Es conecta a la base de dades.
+     */
     @FXML
     public void initialize() {
-        connectToDatabase();
-    }
-
-    private void connectToDatabase() {
         try {
             connection = DriverManager.getConnection("jdbc:sqlite:noted.db");
         } catch (SQLException e) {
@@ -36,34 +39,33 @@ public class RatingController {
         songLabel.setText("Puntuar: " + song.getTitle());
     }
 
+    /**
+     * Comprova els errors i si les dades son correctes fa el insert amb les dades que ha introduit.
+     */
     @FXML
     private void handleSubmitRating() {
-        String ratingText = ratingField.getText();
-        String comment = commentArea.getText();
-
         int rating;
         try {
-            rating = Integer.parseInt(ratingText);
+            rating = Integer.parseInt(ratingField.getText());
             if (rating < 1 || rating > 5) {
-                showAlert(Alert.AlertType.ERROR, "Error", "La puntuació ha de ser un número entre 1 i 5.");
+                showAlert(Alert.AlertType.ERROR, "Error", "La puntuació ha de ser entre 1 i 5.");
                 return;
             }
         } catch (NumberFormatException e) {
-            showAlert(Alert.AlertType.ERROR, "Error", "La puntuació ha de ser un número vàlid.");
+            showAlert(Alert.AlertType.ERROR, "Error", "Introdueix un número vàlid.");
             return;
         }
 
-        // Inserta la valoració a la base de dades
-        String sql = "INSERT INTO ratings (song_id, user_id, rating, review_text) VALUES (?, ?, ?, ?)";
-        try (PreparedStatement stmt = connection.prepareStatement(sql)) {
+        try (PreparedStatement stmt = connection.prepareStatement(
+                "INSERT INTO ratings (song_id, user_id, rating, review_text) VALUES (?, ?, ?, ?)")) {
             stmt.setInt(1, songId);
             stmt.setInt(2, userId);
             stmt.setInt(3, rating);
-            stmt.setString(4, comment);
+            stmt.setString(4, commentArea.getText());
             stmt.executeUpdate();
 
-            showAlert(Alert.AlertType.INFORMATION, "Correcte", "Valoració enviada correctament!");
-            closeWindow();
+            showAlert(Alert.AlertType.INFORMATION, "Correcte", "Valoració enviada!");
+            ((Stage) songLabel.getScene().getWindow()).close();
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -71,11 +73,9 @@ public class RatingController {
         }
     }
 
-    private void closeWindow() {
-        Stage stage = (Stage) songLabel.getScene().getWindow();
-        stage.close();
-    }
-
+    /**
+     * Mostra el missarge de confirmacio.
+     */
     private void showAlert(Alert.AlertType type, String title, String message) {
         Alert alert = new Alert(type);
         alert.setTitle(title);
